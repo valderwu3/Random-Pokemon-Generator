@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -327,23 +327,23 @@ function convertUrlParamsToOptions() {
 function convertOptionsToUrlParams(options) {
     return Object.entries(options)
         .map(function (_a) {
-        var key = _a[0], value = _a[1];
-        var encodableValue;
-        if (Array.isArray(value)) {
-            if (value.length == 0
-                || (key == "types" && value.length == typeCheckboxes.length)
-                || (key == "regions" && value.length == regionCheckboxes.length)) {
-                encodableValue = "all";
+            var key = _a[0], value = _a[1];
+            var encodableValue;
+            if (Array.isArray(value)) {
+                if (value.length == 0
+                    || (key == "types" && value.length == typeCheckboxes.length)
+                    || (key == "regions" && value.length == regionCheckboxes.length)) {
+                    encodableValue = "all";
+                }
+                else {
+                    encodableValue = value.join(",");
+                }
             }
             else {
-                encodableValue = value.join(",");
+                encodableValue = value;
             }
-        }
-        else {
-            encodableValue = value;
-        }
-        return encodeURIComponent(key) + "=" + encodeURIComponent(encodableValue);
-    })
+            return encodeURIComponent(key) + "=" + encodeURIComponent(encodableValue);
+        })
         .join("&");
 }
 function addFormChangeListeners() {
@@ -584,6 +584,8 @@ function onPageLoad() {
     toggleHistoryVisibility();
     addFormChangeListeners();
     displayYearsInFooter();
+    document.getElementById('feedback-form').addEventListener('submit', submitFeedback);
+    displayFeedback();
 }
 document.addEventListener("DOMContentLoaded", onPageLoad);
 function displayPokemon(pokemon) {
@@ -755,6 +757,76 @@ function removeGigantamaxes(pokemonArray) {
 function toHtml(pokemon) {
     var includeSprites = spritesCheckbox.checked;
     return "<ol>".concat(pokemon.map(function (p) { return p.toHtml(includeSprites); }).join(""), "</ol>");
+}
+function submitFeedback(event) {
+    return __awaiter(this, void 0, void 0, function () {
+        var textArea, feedback, response, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    event.preventDefault();
+                    textArea = document.getElementById('feedback-text');
+                    feedback = textArea.value.trim();
+                    if (!feedback) return [3, 7];
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 6, , 7]);
+                    return [4, fetch('/api/feedback', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ text: feedback }),
+                    })];
+                case 2:
+                    response = _a.sent();
+                    if (!response.ok) return [3, 4];
+                    textArea.value = '';
+                    alert('Thank you for your feedback!');
+                    return [4, displayFeedback()];
+                case 3:
+                    _a.sent();
+                    return [3, 5];
+                case 4: throw new Error('Failed to submit feedback');
+                case 5: return [3, 7];
+                case 6:
+                    error_2 = _a.sent();
+                    console.error('Error submitting feedback:', error_2);
+                    alert('An error occurred while submitting feedback. Please try again later.');
+                    return [3, 7];
+                case 7: return [2];
+            }
+        });
+    });
+}
+function displayFeedback() {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, feedbackList, feedbackItems, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 5, , 6]);
+                    return [4, fetch('/api/feedback')];
+                case 1:
+                    response = _a.sent();
+                    if (!response.ok) return [3, 3];
+                    return [4, response.json()];
+                case 2:
+                    feedbackList = _a.sent();
+                    feedbackItems = document.getElementById('feedback-items');
+                    feedbackItems.innerHTML = feedbackList.map(function (item) { return "\n        <div class=\"card\">\n          <p class=\"feedback-text\">".concat(item.text, "</p>\n          <small class=\"feedback-date\">").concat(new Date(item.date).toLocaleString(), "</small>\n        </div>\n      "); }).join('');
+                    document.getElementById('feedback-list').style.display = 'block';
+                    return [3, 4];
+                case 3: throw new Error('获取反馈失败');
+                case 4: return [3, 6];
+                case 5:
+                    error_3 = _a.sent();
+                    console.error('获取反馈时出错:', error_3);
+                    return [3, 6];
+                case 6: return [2];
+            }
+        });
+    });
 }
 function getRandomElement(arr) {
     return arr[randomInteger(arr.length)];

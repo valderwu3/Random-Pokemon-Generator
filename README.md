@@ -8,3 +8,9 @@ This is the source code for [randompokemon.com](https://randompokemon.com). To s
 5. Open http://localhost:8000 in a web browser.
 
 Also see [Blackstareye/Random-Pokemon-Generator](https://github.com/Blackstareye/Random-Pokemon-Generator) for a fork with an API powered by a NodeJS back end.
+
+# Keywords
+random pokemon generator
+
+
+# FAQ

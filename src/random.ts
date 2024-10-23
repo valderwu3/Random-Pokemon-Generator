@@ -22,6 +22,10 @@ function onPageLoad() {
 	toggleHistoryVisibility();
 	addFormChangeListeners();
 	displayYearsInFooter();
+	
+	// 添加新的事件监听器
+	document.getElementById('feedback-form').addEventListener('submit', submitFeedback);
+	displayFeedback();
 }
 document.addEventListener("DOMContentLoaded", onPageLoad);
 
@@ -200,4 +204,60 @@ function removeGigantamaxes(pokemonArray: Pokemon[]): Pokemon[] {
 function toHtml(pokemon: GeneratedPokemon[]) {
 	const includeSprites = spritesCheckbox.checked;
 	return `<ol>${pokemon.map(p => p.toHtml(includeSprites)).join("")}</ol>`;
+}
+
+interface Feedback {
+  id: number;
+  text: string;
+  date: string;
+}
+
+async function submitFeedback(event: Event) {
+  event.preventDefault();
+  const textArea = document.getElementById('feedback-text') as HTMLTextAreaElement;
+  const feedback = textArea.value.trim();
+  
+  if (feedback) {
+    try {
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: feedback }),
+      });
+      
+      if (response.ok) {
+        textArea.value = '';
+        alert('感谢您的反馈!');
+        await displayFeedback();
+      } else {
+        throw new Error('提交反馈失败');
+      }
+    } catch (error) {
+      console.error('提交反馈时出错:', error);
+      alert('提交反馈时出错,请稍后再试。');
+    }
+  }
+}
+
+async function displayFeedback() {
+  try {
+    const response = await fetch('/api/feedback');
+    if (response.ok) {
+      const feedbackList: Feedback[] = await response.json();
+      const feedbackItems = document.getElementById('feedback-items');
+      feedbackItems.innerHTML = feedbackList.map(item => `
+        <li>
+          <p>${item.text}</p>
+          <small>${new Date(item.date).toLocaleString()}</small>
+        </li>
+      `).join('');
+      document.getElementById('feedback-list').style.display = 'block';
+    } else {
+      throw new Error('获取反馈失败');
+    }
+  } catch (error) {
+    console.error('获取反馈时出错:', error);
+  }
 }
