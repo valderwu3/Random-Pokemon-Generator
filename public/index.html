@@ -13,6 +13,10 @@
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="keywords"
+        content="random pokemon generator, generate a random pokemon, generate random pokemon, random generator pokemon, random pokemon type generator">
+    <meta name="description"
+	content="Create unique Pokémon teams effortlessly with our Random Pokémon Generator. Supports all generations and types, customizable by region, attributes, and evolution stages. Perfect for competitive battles, game challenges, or exploring new Pokémon. Generate your random Pokémon now and start your adventure!">
 </head>
 
 <body>
@@ -27,7 +31,7 @@
 	<form action="?" method="get" id="controls" class="menu"
 		onsubmit="generateRandom(); scrollToResults(); return false;">
 		<fieldset>
-			<label>Generate&nbsp;&nbsp;<select name="n" id="n" required>
+			<label style="font-weight: bold; color: #2196F3;">Generate&nbsp;&nbsp;<select name="n" id="n" required>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -241,7 +245,7 @@
 	</section>
 
 	<section id="feedback">
-		<h2>Provide Feedback</h2>
+		<p style="font-weight: bold; color: #2196F3;font-size: 2em;">Provide Feedback</p>
 		<form id="feedback-form">
 			<textarea id="feedback-text" rows="4" placeholder="Please enter your comments or suggestions"
 				required></textarea>
@@ -250,7 +254,7 @@
 	</section>
 
 	<section id="feedback-list" style="display: none;">
-		<h2>User Feedback</h2>
+		<p style="font-weight: bold; color: #2196F3; font-size: 2em;">User Feedback</p>
 		<div class="grid">
 			<div id="feedback-items" class="feedback-grid"></div>
 		</div>
