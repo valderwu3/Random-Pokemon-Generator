@@ -4,10 +4,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Random Pok&eacute;mon Generator</title>
+	<title>Random Pokemon Generator</title>
 	<link rel="stylesheet" type="text/css" href="/style.css">
 
-	<meta name="description" content="This tool generates random Pok&eacute;mon by region, type, and more.">
+	<meta name="description" content="This tool generates random Pokemon by region, type, and more.">
 
 	<link rel="icon" href="/favicon.ico">
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -35,9 +35,10 @@
 		style="background-image: url('imgs/header.webp'); background-size: cover; background-position: center; padding: 40px 0;">
 		<h1
 			style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; display: inline-block; border-radius: 10px;">
-			Random Pok&eacute;mon Generator</h1>
+			Random Pokemon Generator</h1>
 	</header>
 
+	<h2>Generator Options</h2>
 	<form action="?" method="get" id="controls" class="menu"
 		onsubmit="generateRandom(); scrollToResults(); return false;">
 		<fieldset>
@@ -48,7 +49,7 @@
 					<option value="4">4</option>
 					<option value="5">5</option>
 					<option value="6" selected>6</option>
-				</select>&nbsp;&nbsp;Pok&eacute;mon.</label>
+				</select>&nbsp;&nbsp;Pokemon.</label>
 
 			<div class="dropdown" id="regions">
 				<button type="button" data-plural-name="Regions">All Regions</button>
@@ -59,13 +60,13 @@
 						<li><label title="Generation 1 (Red, Blue, and Yellow)"><input type="checkbox" name="regions"
 									value="kanto" checked>Kanto</label></li>
 						<li><label
-								title="Pok&eacute;mon that can be selected as rentals in Pok&eacute;mon Stadium."><input
+								title="Pokemon that can be selected as rentals in Pokemon Stadium."><input
 									type="checkbox" name="regions" value="stadium_rentals" checked>Stadium
 								Rentals</label></li>
 						<li><label title="Generation 2 (Gold, Silver, and Crystal)"><input type="checkbox"
 									name="regions" value="johto" checked>Johto</label></li>
 						<li><label
-								title="Pok&eacute;mon that can be selected as rentals in Pok&eacute;mon Stadium 2."><input
+								title="Pokemon that can be selected as rentals in Pokemon Stadium 2."><input
 									type="checkbox" name="regions" value="stadium_2_rentals" checked>Stadium 2
 								Rentals</label></li>
 						<li><label title="Generation 3 (Ruby, Sapphire, and Emerald)"><input type="checkbox"
@@ -136,14 +137,14 @@
 						<li><label><input type="checkbox" data-select-all="true" checked>Select All</label></li>
 
 						<li><label><input type="checkbox" id="sublegendaries" name="sublegendaries" value="true"
-									data-short-name="Sub-Legendary" checked>Sub-Legendary Pok&eacute;mon</label></li>
+									data-short-name="Sub-Legendary" checked>Sub-Legendary Pokemon</label></li>
 						<li><label><input type="checkbox" id="legendaries" name="legendaries" value="true"
-									data-short-name="Legendary" checked>Legendary Pok&eacute;mon</label></li>
+									data-short-name="Legendary" checked>Legendary Pokemon</label></li>
 						<li><label><input type="checkbox" id="mythicals" name="mythicals" value="true"
-									data-short-name="Mythical" checked>Mythical Pok&eacute;mon</label></li>
+									data-short-name="Mythical" checked>Mythical Pokemon</label></li>
 
 						<li><label><input type="checkbox" id="paradox" name="paradox" value="true"
-									data-short-name="Paradox" checked>Paradox Pok&eacute;mon</label></li>
+									data-short-name="Paradox" checked>Paradox Pokemon</label></li>
 						<li><label><input type="checkbox" id="ultraBeast" name="ultraBeast" value="true" checked>Ultra
 								Beasts</label></li>
 					</ul>
@@ -237,6 +238,7 @@
 		</script>
 	</form>
 
+	<h2>Generated Results</h2>
 	<nav id="history">
 		<button class="hidden text" id="previous" onclick="displayPrevious()">&#x23EA; Previous</button>
 		<button class="hidden text" id="next" onclick="displayNext()">Next &#x23E9;</button>
@@ -244,6 +246,7 @@
 
 	<section id="results"></section>
 
+	<h2>Shiny Pokémon</h2>
 	<button id="shiny-toggler" class="text is-hiding" onclick="toggleShinyDisplay()">
 		<span class="star">&starf;</span>
 		<span id="shiny-count">0</span> shiny Pokémon
@@ -254,8 +257,9 @@
 		<button class="text" onclick="clearShinies()">&#x274C; Clear your shiny Pokémon</button>
 	</section>
 
+	<h2>User Feedback</h2>
 	<section id="feedback">
-		<p style="font-weight: bold; color: #2196F3;font-size: 2em;">Provide Feedback</p>
+		<h3>Provide Feedback</h3>
 		<form id="feedback-form">
 			<textarea id="feedback-text" rows="4" placeholder="Please enter your comments or suggestions"
 				required></textarea>
@@ -264,14 +268,14 @@
 	</section>
 
 	<section id="feedback-list" style="display: none;">
-		<p style="font-weight: bold; color: #2196F3; font-size: 2em;">User Feedback</p>
+		<h3>User Feedback</h3>
 		<div class="grid">
 			<div id="feedback-items" class="feedback-grid"></div>
 		</div>
 	</section>
 
+	<h2>Frequently Asked Questions</h2>
 	<section id="faq" class="container">
-		<h2>Frequently Asked Questions</h2>
 		<div class="grid">
 			<div class="card">
 				<h3>How to generate a random Pokemon?</h3>
@@ -317,7 +321,7 @@
 		<p>
 			<a href="https://github.com/nerdydrew/Random-Pokemon-Generator">GitHub</a> |
 			<a href="mailto:drew@drewm.com">Contact</a> |
-			Pok&eacute;mon is &copy; <span data-since="1995"></span> Nintendo. Website is &copy; <span
+			Pokemon is &copy; <span data-since="1995"></span> Nintendo. Website is &copy; <span
 				data-since="2008"></span> <a href="https://drewm.com">Drew Mitchell</a>.
 		</p>
 	</footer>
